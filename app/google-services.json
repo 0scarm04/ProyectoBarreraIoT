@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "542400919883",
+    "project_id": "proyectobarreraiot",
+    "storage_bucket": "proyectobarreraiot.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:542400919883:android:5b23f625b846dc1a0c50ce",
+        "android_client_info": {
+          "package_name": "com.example.proyectobarreraiot"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBUfwJVouASbHe2KuDohd3F5myQyo41xQ4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

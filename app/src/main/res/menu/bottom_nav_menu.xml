@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_form"
+        android:icon="@drawable/ic_form"
+        android:title="Formulario" />
+
+    <item
+        android:id="@+id/navigation_view_trucks"
+        android:icon="@drawable/ic_view_list"
+        android:title="Ver Camiones" />
+
+    <item
+        android:id="@+id/navigation_logout"
+        android:icon="@drawable/ic_logout"
+        android:title="Cerrar Sesión" />
+</menu>
