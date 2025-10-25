@@ -12,7 +12,7 @@
         android:title="Ver Camiones" />
 
     <item
-        android:id="@+id/navigation_logout"
-        android:icon="@drawable/ic_logout"
-        android:title="Cerrar Sesión" />
+        android:id="@+id/navigation_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="Configuracion" />
 </menu>

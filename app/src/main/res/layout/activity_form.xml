@@ -131,7 +131,11 @@
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/etEstado"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:focusable="false"
+            android:clickable="false"
+            android:textColor="@android:color/darker_gray" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout

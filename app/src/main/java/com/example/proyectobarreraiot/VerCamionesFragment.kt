@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -15,6 +16,7 @@ import com.google.firebase.database.*
 class VerCamionesFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
+    private lateinit var noHayIngresos: TextView
     private lateinit var camionesList: ArrayList<Camion>
     private lateinit var database: DatabaseReference
     private lateinit var valueEventListener: ValueEventListener
@@ -30,6 +32,7 @@ class VerCamionesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         recyclerView = view.findViewById(R.id.rvCamiones)
+        noHayIngresos = view.findViewById(R.id.noHayIngresos)
         recyclerView.layoutManager = LinearLayoutManager(context)
         camionesList = arrayListOf()
 
@@ -49,7 +52,14 @@ class VerCamionesFragment : Fragment() {
                             camionesList.add(camion)
                         }
                     }
-                    val adapter = AdapterCamion(camionesList){ camion ->
+                }
+                if (camionesList.isEmpty()) {
+                    recyclerView.visibility = View.GONE
+                    noHayIngresos.visibility = View.VISIBLE
+                } else {
+                    recyclerView.visibility = View.VISIBLE
+                    noHayIngresos.visibility = View.GONE
+                    val adapter = AdapterCamion(camionesList) { camion ->
                         eliminarCamion(camion)
                     }
                     recyclerView.adapter = adapter

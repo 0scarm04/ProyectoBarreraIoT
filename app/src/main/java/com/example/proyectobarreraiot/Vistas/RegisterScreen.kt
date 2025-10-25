@@ -23,10 +23,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.UserProfileChangeRequest
 
 
 @Composable
 fun RegisterScreen(navController: NavController, auth: FirebaseAuth) {
+    var name by rememberSaveable { mutableStateOf("") }
     var email by rememberSaveable { mutableStateOf("") }
     var password by rememberSaveable { mutableStateOf("") }
     var confirm by rememberSaveable { mutableStateOf("") }
@@ -54,6 +56,16 @@ fun RegisterScreen(navController: NavController, auth: FirebaseAuth) {
 
             Spacer(Modifier.height(32.dp))
 
+            // Nombre
+            OutlinedTextField(
+                value = name,
+                onValueChange = { name = it },
+                label = { Text("Nombre del guardia") },
+                singleLine = true,
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(Modifier.height(16.dp))
+
             // Correo
             OutlinedTextField(
                 value = email,
@@ -63,7 +75,6 @@ fun RegisterScreen(navController: NavController, auth: FirebaseAuth) {
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                 modifier = Modifier.fillMaxWidth()
             )
-
             Spacer(Modifier.height(16.dp))
 
             // Contraseña
@@ -111,7 +122,7 @@ fun RegisterScreen(navController: NavController, auth: FirebaseAuth) {
             // Registrar
             Button(
                 onClick = {
-                    validarRegistro(email, password, confirm, auth, context, onSuccess = {
+                    validarRegistro(name, email, password, confirm, auth, context, onSuccess = {
                         // navegar al login
                         navController.popBackStack()
                     })
@@ -133,6 +144,7 @@ fun RegisterScreen(navController: NavController, auth: FirebaseAuth) {
 }
 
 private fun validarRegistro(
+    name: String,
     email: String,
     password: String,
     confirm: String,
@@ -141,7 +153,7 @@ private fun validarRegistro(
     onSuccess: () -> Unit
 ) {
     //Validar si los campos estan vacios
-    if(email.isBlank() || password.isBlank() || confirm.isBlank()){
+    if(name.isBlank() || email.isBlank() || password.isBlank() || confirm.isBlank()){
         Toast.makeText(context, "Completa todos los campos", Toast.LENGTH_SHORT).show()
         return
     }
@@ -164,8 +176,18 @@ private fun validarRegistro(
 
     auth.createUserWithEmailAndPassword(email, password).addOnCompleteListener { task ->
         if(task.isSuccessful){
-            Toast.makeText(context, "Registro Exitoso", Toast.LENGTH_SHORT).show()
-            onSuccess()
+            val user = task.result?.user
+            if (user != null) {
+                val profileUpdates = UserProfileChangeRequest.Builder()
+                    .setDisplayName(name)
+                    .build()
+                user.updateProfile(profileUpdates).addOnCompleteListener { profileTask ->
+                    if (profileTask.isSuccessful) {
+                        Toast.makeText(context, "Registro exitoso", Toast.LENGTH_SHORT).show()
+                        onSuccess()
+                    }
+                }
+            }
         } else {
             Toast.makeText(context, "Error al registrar", Toast.LENGTH_SHORT).show()
         }

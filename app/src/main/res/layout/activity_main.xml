@@ -7,7 +7,6 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <!-- This FrameLayout will hold your screens (Form and View Trucks) -->
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
