@@ -7,8 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.compose.ui.semantics.setText
-import androidx.compose.ui.semantics.text
 import androidx.fragment.app.Fragment
 import com.example.proyectobarreraiot.databinding.FragmentConfiguracionBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -19,6 +17,10 @@ class ConfiguracionFragment : Fragment() {
     private val binding get() = _binding!!
 
     private lateinit var auth: FirebaseAuth
+
+    // valores de peso por defecto
+    private var pesoMinimo: Float = 500f
+    private var pesoMaximo: Float = 1000f
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,15 +36,18 @@ class ConfiguracionFragment : Fragment() {
         auth = FirebaseAuth.getInstance()
         val sharedPref = activity?.getSharedPreferences("PesosConfig", Context.MODE_PRIVATE) ?: return
 
-        // Cargar los valores guardados
-        val pesoMinimo = sharedPref.getFloat("peso_minimo", 0.0f)
-        val pesoMaximo = sharedPref.getFloat("peso_maximo", 0.0f)
+        val pesoMinimo = sharedPref.getFloat("peso_minimo", pesoMinimo)
+        val pesoMaximo = sharedPref.getFloat("peso_maximo", pesoMaximo)
 
-        if (pesoMinimo > 0.0f) {
-            binding.etPesoMinimo.setText(pesoMinimo.toString())
-        }
-        if (pesoMaximo > 0.0f) {
-            binding.etPesoMaximo.setText(pesoMaximo.toString())
+        // Guardar y mostrar los valores por defecto
+        binding.etPesoMinimo.setText(pesoMinimo.toString())
+        binding.etPesoMaximo.setText(pesoMaximo.toString())
+        if (!sharedPref.contains("peso_minimo")) {
+            with(sharedPref.edit()) {
+                putFloat("peso_minimo", pesoMinimo)
+                putFloat("peso_maximo", pesoMaximo)
+                apply()
+            }
         }
 
         // Guardar configuración
@@ -61,8 +66,6 @@ class ConfiguracionFragment : Fragment() {
                 Toast.makeText(context, "Por favor, completa ambos campos", Toast.LENGTH_SHORT).show()
             }
         }
-
-        // Botón de cerrar sesión
         binding.btnLogout.setOnClickListener {
             cerrarSesion()
         }

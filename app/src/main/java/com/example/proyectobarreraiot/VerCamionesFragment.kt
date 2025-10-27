@@ -1,11 +1,13 @@
 package com.example.proyectobarreraiot
 
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -21,6 +23,17 @@ class VerCamionesFragment : Fragment() {
     private lateinit var database: DatabaseReference
     private lateinit var valueEventListener: ValueEventListener
 
+    // Para que cambie a horizontal en la tabla
+    override fun onResume(){
+        super.onResume()
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
+    }
+    // Para que cambie a vertical en otras vistas
+    override fun onPause(){
+        super.onPause()
+        activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -34,6 +47,7 @@ class VerCamionesFragment : Fragment() {
         recyclerView = view.findViewById(R.id.rvCamiones)
         noHayIngresos = view.findViewById(R.id.noHayIngresos)
         recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.isNestedScrollingEnabled = false
         camionesList = arrayListOf()
 
         getCamionesData()
@@ -60,7 +74,7 @@ class VerCamionesFragment : Fragment() {
                     recyclerView.visibility = View.VISIBLE
                     noHayIngresos.visibility = View.GONE
                     val adapter = AdapterCamion(camionesList) { camion ->
-                        eliminarCamion(camion)
+                        mostrarDialogoConfirmacion(camion)
                     }
                     recyclerView.adapter = adapter
                 }
@@ -72,6 +86,21 @@ class VerCamionesFragment : Fragment() {
         }
         database.addValueEventListener(valueEventListener)
     }
+
+    private fun mostrarDialogoConfirmacion(camion: Camion) {
+        val context = context ?: return
+
+        AlertDialog.Builder(context)
+            .setTitle("Confirmar Eliminación")
+            .setMessage("¿Estás seguro de que deseas eliminar el registro de este camión?")
+            .setPositiveButton("Sí") { _, _ ->
+                eliminarCamion(camion)
+            }
+            .setNegativeButton("No", null)
+            .setIcon(R.drawable.ic_delete)
+            .show()
+    }
+
     private fun eliminarCamion(camion: Camion) {
         if (camion.id == null) {
             Toast.makeText(context, "No existe un camion con esa ID", Toast.LENGTH_SHORT).show()
