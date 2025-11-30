@@ -33,6 +33,9 @@ class MainActivity : AppCompatActivity() {
                 R.id.navigation_settings -> {
                     selectedFragment = ConfiguracionFragment()
                 }
+                R.id.navigation_manual -> {
+                    selectedFragment = ControlManualFragment()
+                }
             }
             if (selectedFragment != null) {
                 supportFragmentManager.beginTransaction()

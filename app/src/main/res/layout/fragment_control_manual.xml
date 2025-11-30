@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/tvTituloManual"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Control Manual"
+        android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilIpArduino"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Dirección IP Arduino"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvTituloManual">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/etIpArduino"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="192.168.1.4"
+            android:inputType="textUri"
+            android:maxLines="1" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/btnConexionManual"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Verificar conexión Wi-Fi"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tilIpArduino" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cvEstadoContainerManual"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:cardCornerRadius="8dp"
+        app:cardElevation="4dp"
+        app:cardBackgroundColor="@android:color/darker_gray"
+        app:strokeWidth="0dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnConexionManual">
+
+        <TextView
+            android:id="@+id/tvEstadoConexionManual"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            android:gravity="center"
+            android:text="Estado: Desconocido"
+            android:textColor="@android:color/white"
+            android:textStyle="bold"
+            android:textSize="16sp"/>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/tvLabelEntrada"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Barrera Entrada (Proximidad)"
+        android:textStyle="bold"
+        android:layout_marginTop="32dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cvEstadoContainerManual"/>
+
+    <LinearLayout
+        android:id="@+id/layoutBotonesEntrada"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvLabelEntrada">
+
+        <Button
+            android:id="@+id/btnAbrirEntrada"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Abrir"
+            android:backgroundTint="#4CAF50"
+            android:layout_marginEnd="4dp" />
+
+        <Button
+            android:id="@+id/btnCerrarEntrada"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Cerrar"
+            android:backgroundTint="#F44336"
+            android:layout_marginStart="4dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvLabelSalida"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Barrera Salida (Báscula)"
+        android:textStyle="bold"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutBotonesEntrada"/>
+
+    <LinearLayout
+        android:id="@+id/layoutBotonesSalida"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvLabelSalida">
+
+        <Button
+            android:id="@+id/btnAbrirSalida"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Abrir"
+            android:backgroundTint="#4CAF50"
+            android:layout_marginEnd="4dp" />
+
+        <Button
+            android:id="@+id/btnCerrarSalida"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Cerrar"
+            android:backgroundTint="#F44336"
+            android:layout_marginStart="4dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvLabelAlarma"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Control de Alarma"
+        android:textStyle="bold"
+        android:layout_marginTop="24dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutBotonesSalida"/>
+
+    <LinearLayout
+        android:id="@+id/layoutBotonesAlarma"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tvLabelAlarma">
+
+        <Button
+            android:id="@+id/btnEncenderAlarma"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="ENCENDER"
+            android:backgroundTint="#4CAF50"
+            android:layout_marginEnd="4dp" />
+
+        <Button
+            android:id="@+id/btnApagarAlarma"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="APAGAR"
+            android:backgroundTint="#F44336"
+            android:layout_marginStart="4dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvEstadoCmd"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Esperando comando..."
+        android:textColor="@android:color/darker_gray"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutBotonesAlarma"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.UserProfileChangeRequest
+import java.util.regex.Pattern
 
 
 @Composable
@@ -56,7 +57,6 @@ fun RegisterScreen(navController: NavController, auth: FirebaseAuth) {
 
             Spacer(Modifier.height(32.dp))
 
-            // Nombre
             OutlinedTextField(
                 value = name,
                 onValueChange = { name = it },
@@ -66,7 +66,6 @@ fun RegisterScreen(navController: NavController, auth: FirebaseAuth) {
             )
             Spacer(Modifier.height(16.dp))
 
-            // Correo
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it.trim() },
@@ -77,11 +76,10 @@ fun RegisterScreen(navController: NavController, auth: FirebaseAuth) {
             )
             Spacer(Modifier.height(16.dp))
 
-            // Contraseña
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it },
-                label = { Text("Contraseña (mín. 6)") },
+                label = { Text("Contraseña (mín. 8, Mayús, num, símbolo)") }, // Etiqueta actualizada
                 singleLine = true,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
                 visualTransformation = if (showPass) VisualTransformation.None else PasswordVisualTransformation(),
@@ -98,7 +96,6 @@ fun RegisterScreen(navController: NavController, auth: FirebaseAuth) {
 
             Spacer(Modifier.height(16.dp))
 
-            // Confirmación
             OutlinedTextField(
                 value = confirm,
                 onValueChange = { confirm = it },
@@ -119,11 +116,9 @@ fun RegisterScreen(navController: NavController, auth: FirebaseAuth) {
 
             Spacer(Modifier.height(24.dp))
 
-            // Registrar
             Button(
                 onClick = {
                     validarRegistro(name, email, password, confirm, auth, context, onSuccess = {
-                        // navegar al login
                         navController.popBackStack()
                     })
                 },
@@ -152,22 +147,23 @@ private fun validarRegistro(
     context: Context,
     onSuccess: () -> Unit
 ) {
-    //Validar si los campos estan vacios
     if(name.isBlank() || email.isBlank() || password.isBlank() || confirm.isBlank()){
         Toast.makeText(context, "Completa todos los campos", Toast.LENGTH_SHORT).show()
         return
     }
 
-    // Validar que el formato del correo sea valido
     if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
         Toast.makeText(context, "Correo Invalido", Toast.LENGTH_SHORT).show()
         return
     }
-    // Validar longitud de la contraseña
-    if(password.length < 6){
-        Toast.makeText(context, "La contraseñá debe contener al menos 6 caracteres", Toast.LENGTH_SHORT).show()
+
+    val passwordRegex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=!])(?=\\S+$).{8,}$"
+    val pattern = Pattern.compile(passwordRegex)
+    if (!pattern.matcher(password).matches()) {
+        Toast.makeText(context, "La contraseña debe tener al menos 8 caracteres, incluir mayúsculas, números y símbolos.", Toast.LENGTH_LONG).show()
         return
     }
+    // ----------------------------------------------
 
     if(password != confirm){
         Toast.makeText(context, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show()
@@ -189,7 +185,7 @@ private fun validarRegistro(
                 }
             }
         } else {
-            Toast.makeText(context, "Error al registrar", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Error al registrar: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
         }
     }
 }

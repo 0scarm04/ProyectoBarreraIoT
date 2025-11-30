@@ -17,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
-            android:text="Configuración"
+            android:text="Configuración de Peso"
             android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -69,16 +69,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tilPesoMaximo" />
-        <Button
-            android:id="@+id/btnConexion"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="30dp"
-            android:layout_marginTop="32dp"
-            android:text="Conectar con Wi-Fi"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/btnGuardarConfig" />
+
         <Button
             android:id="@+id/btnLogout"
             style="@style/Widget.Material3.Button.TonalButton"
@@ -87,7 +78,7 @@
             android:layout_marginHorizontal="30dp"
             android:layout_marginTop="32dp"
             android:text="Cerrar Sesión"
-            app:layout_constraintTop_toBottomOf="@id/btnConexion"
+            app:layout_constraintTop_toBottomOf="@id/btnGuardarConfig"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
 

@@ -19,8 +19,8 @@ class ConfiguracionFragment : Fragment() {
     private lateinit var auth: FirebaseAuth
 
     // valores de peso por defecto
-    private var pesoMinimo: Float = 500f
-    private var pesoMaximo: Float = 1000f
+    private var pesoMinimo: Float = 10f
+    private var pesoMaximo: Float = 15f
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,6 +66,7 @@ class ConfiguracionFragment : Fragment() {
                 Toast.makeText(context, "Por favor, completa ambos campos", Toast.LENGTH_SHORT).show()
             }
         }
+
         binding.btnLogout.setOnClickListener {
             cerrarSesion()
         }

@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true"
     tools:context=".VerCamionesFragment">
 
@@ -20,11 +21,22 @@
             android:text="Tabla de Ingresos"
             android:textAppearance="@style/TextAppearance.Material3.HeadlineLarge" />
 
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/TituloVerCamiones"
+            android:layout_marginHorizontal="16dp"
+            android:layout_marginTop="16dp"
+            app:queryHint="Buscar por patente o conductor..."
+            app:iconifiedByDefault="false" />
+
+
         <HorizontalScrollView
             android:id="@+id/horizontal_scroll"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/TituloVerCamiones"
+            android:layout_below="@id/searchView"
             android:layout_marginTop="16dp"
             android:fillViewport="true"
             android:scrollbars="horizontal">
@@ -95,15 +107,6 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1.5"
                         android:text="Guardia"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:text="Acciones"
                         android:textSize="14sp"
                         android:textStyle="bold" />
                 </LinearLayout>

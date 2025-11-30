@@ -3,17 +3,14 @@ package com.example.proyectobarreraiot.Adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.proyectobarreraiot.Models.Camion
 import com.example.proyectobarreraiot.R
 
 class AdapterCamion (
-    private var camiones: ArrayList<Camion>,
-    private val onDeleteClicked: (Camion) -> Unit
-):
-    RecyclerView.Adapter<AdapterCamion.ViewHolder>() {
+    private var camiones: ArrayList<Camion>
+): RecyclerView.Adapter<AdapterCamion.ViewHolder>() {
 
     class ViewHolder (itemView: View): RecyclerView.ViewHolder(itemView) {
         val patente: TextView = itemView.findViewById(R.id.tvPatente)
@@ -23,7 +20,6 @@ class AdapterCamion (
         val hora: TextView = itemView.findViewById(R.id.tvHora)
         val estado: TextView = itemView.findViewById(R.id.tvEstado)
         val guardia: TextView = itemView.findViewById(R.id.tvGuardia)
-        val btnEliminar: ImageButton = itemView.findViewById(R.id.btnEliminar)
     }
 
     override fun onCreateViewHolder(
@@ -44,13 +40,14 @@ class AdapterCamion (
         holder.estado.text = camion.estado
         holder.guardia.text = camion.guardia
 
-        // Asignar el listener solo al botón de eliminar
-        holder.btnEliminar.setOnClickListener {
-            onDeleteClicked(camion)
-        }
     }
 
     override fun getItemCount(): Int {
         return camiones.size
+    }
+
+    fun actualizarLista(nuevaLista: ArrayList<Camion>) {
+        camiones = nuevaLista
+        notifyDataSetChanged()
     }
 }

@@ -12,6 +12,12 @@
         android:title="Ver Camiones" />
 
     <item
+        android:id="@+id/navigation_manual"
+        android:icon="@android:drawable/ic_menu_preferences"
+        android:title="Control Manual" />
+
+
+    <item
         android:id="@+id/navigation_settings"
         android:icon="@drawable/ic_settings"
         android:title="Configuracion" />
