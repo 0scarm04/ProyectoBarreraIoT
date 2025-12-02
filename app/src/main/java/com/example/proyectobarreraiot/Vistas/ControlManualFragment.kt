@@ -66,17 +66,17 @@ class ControlManualFragment : Fragment() {
         }
 
         view.findViewById<Button>(R.id.btnAbrirEntrada).setOnClickListener {
-            enviarComando("Q", "Barrera Entrada Abierta")
+            enviarComando("Q", "Barrera Bascula Abierta")
         }
         view.findViewById<Button>(R.id.btnCerrarEntrada).setOnClickListener {
-            enviarComando("W", "Barrera Entrada Cerrada")
+            enviarComando("W", "Barrera Bascula Cerrada")
         }
 
         view.findViewById<Button>(R.id.btnAbrirSalida).setOnClickListener {
-            enviarComando("E", "Barrera Salida Abierta")
+            enviarComando("E", "Barrera Proximidad Abierta")
         }
         view.findViewById<Button>(R.id.btnCerrarSalida).setOnClickListener {
-            enviarComando("R", "Barrera Salida Cerrada")
+            enviarComando("R", "Barrera Proximidad Cerrada")
         }
 
         view.findViewById<Button>(R.id.btnEncenderAlarma).setOnClickListener {
